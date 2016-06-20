@@ -5,9 +5,9 @@ namespace Phoneword
 {
     public class MainPage : ContentPage
     {
-        private Entry _phoneNumberEntry;
+        private readonly Entry _phoneNumberEntry;
         private Button _translateButton;
-        private Button _callButton;
+        private readonly Button _callButton;
 
         private string _translatedNumber;
 
@@ -25,7 +25,7 @@ namespace Phoneword
 
             panel.Children.Add(new Label
             {
-                Text = "Enter a Phonework:",
+                Text = "Enter a Phoneword:",
             });
 
             panel.Children.Add(_phoneNumberEntry = new Entry
