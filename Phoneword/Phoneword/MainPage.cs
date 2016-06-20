@@ -6,7 +6,7 @@ namespace Phoneword
     public class MainPage : ContentPage
     {
         private readonly Entry _phoneNumberEntry;
-        private Button _translateButton;
+        private readonly Button _translateButton;
         private readonly Button _callButton;
 
         private string _translatedNumber;
@@ -46,6 +46,7 @@ namespace Phoneword
 
             
             _translateButton.Clicked += OnTranslate;
+            _callButton.Clicked += OnCall;
 
             Content = panel;
         }
@@ -65,6 +66,22 @@ namespace Phoneword
                 _callButton.IsEnabled = false;
                 _callButton.Text = "Call";
             }
+        }
+
+        private async void OnCall(object sender, EventArgs e)
+        {
+            if (!await DisplayAlert(
+                "Dial a Number",
+                "Would you like to call " + _translatedNumber + "?",
+                "Yes",
+                "No"))
+            {
+                return;
+            }
+
+            var dialer = DependencyService.Get<IDialer>();
+
+            dialer?.Dial(_translatedNumber);
         }
     }
 }
